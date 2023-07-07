@@ -58,7 +58,7 @@ public class GejalaAdapter extends RecyclerView.Adapter<GejalaAdapter.DeteksiHol
             }
         });
 
-        holder.cbGejala.setText(data.getNamaGejala().trim() + " - " + data.getKodeGejala());
+        holder.cbGejala.setText(data.getNamaGejala().trim());
         holder.cbGejala.setChecked(data.isSelected());
         holder.cbGejala.setTag(data);
     }

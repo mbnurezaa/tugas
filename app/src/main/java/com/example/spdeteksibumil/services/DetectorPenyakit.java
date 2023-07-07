@@ -64,7 +64,6 @@ public class DetectorPenyakit {
     }
 
     private List<String> getGejalaByPenyakit(String kodePenyakit) {
-        Log.i("Penyakit", kodePenyakit);
         List<String> gejalaList = new ArrayList<>();
         for (Rule rule : rules) {
             if (rule.getKodePenyakit().equals(kodePenyakit)) {
