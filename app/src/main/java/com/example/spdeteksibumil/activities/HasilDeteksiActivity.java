@@ -1,36 +1,52 @@
 package com.example.spdeteksibumil.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spdeteksibumil.R;
 import com.example.spdeteksibumil.database.DatabaseHelper;
-import com.google.android.material.button.MaterialButton;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.spdeteksibumil.model.Penyakit;
 
 public class HasilDeteksiActivity extends AppCompatActivity {
 
+    SQLiteDatabase sqLiteDatabase;
+    DatabaseHelper databaseHelper;
+
+    TextView tvNamaPenyakit;
+    TextView tvSaran;
+
+    private Penyakit penyakit = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil_deteksi);
 
+        tvNamaPenyakit = findViewById(R.id.tvPenyakit);
+        tvSaran = findViewById(R.id.tvPenanganan);
 
+        Intent intent = getIntent();
+        databaseHelper = new DatabaseHelper(this);
+        if (databaseHelper.openDatabase())
+            sqLiteDatabase = databaseHelper.getReadableDatabase();
+
+        String hasil = intent.getStringExtra("HASIL");
+        penyakit = databaseHelper.getPenyakitById(hasil);
+
+//        cek apakah ada data penyakit
+        if (penyakit == null){
+            Toast.makeText(HasilDeteksiActivity.this, "Penyakit tidak ditemukan!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        tvNamaPenyakit.setText(penyakit.getNama());
+        tvSaran.setText(penyakit.getSaran());
+        Log.i("Deskripsi", penyakit.getDeskripsi());
     }
 }

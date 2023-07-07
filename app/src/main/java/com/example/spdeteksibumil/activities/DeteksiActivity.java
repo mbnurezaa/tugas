@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -19,17 +20,22 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.spdeteksibumil.R;
 import com.example.spdeteksibumil.adapter.DeteksiAdapter;
+import com.example.spdeteksibumil.adapter.GejalaAdapter;
 import com.example.spdeteksibumil.database.DatabaseHelper;
+import com.example.spdeteksibumil.model.Gejala;
 import com.example.spdeteksibumil.model.ModelDeteksi;
+import com.example.spdeteksibumil.services.DetectorPenyakit;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DeteksiActivity extends AppCompatActivity {
 
     SQLiteDatabase sqLiteDatabase;
-    DeteksiAdapter deteksiAdapter;
-    ArrayList<ModelDeteksi> modelDeteksiArrayList = new ArrayList<>();
+    GejalaAdapter gejalaAdapter;
+    ArrayList<Gejala> listGejala = new ArrayList<>();
     DatabaseHelper databaseHelper;
     Toolbar toolbar;
     RecyclerView rvDeteksiPenyakit;
@@ -57,31 +63,34 @@ public class DeteksiActivity extends AppCompatActivity {
         }
 
         rvDeteksiPenyakit.setLayoutManager(new LinearLayoutManager(this));
-        deteksiAdapter = new DeteksiAdapter(this, modelDeteksiArrayList);
-        rvDeteksiPenyakit.setAdapter(deteksiAdapter);
+        gejalaAdapter = new GejalaAdapter(this, listGejala);
+        rvDeteksiPenyakit.setAdapter(gejalaAdapter);
         rvDeteksiPenyakit.setHasFixedSize(true);
 
         btnHasilDeteksi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringBuffer gejalaPilihan = new StringBuffer();
+                ArrayList<Gejala> selected = gejalaAdapter.getSelectedGejala();
 
-                ArrayList<ModelDeteksi> gejalaList = modelDeteksiArrayList;
-                for (int i = 0; i <gejalaList.size(); i++) {
-                    ModelDeteksi gejala = gejalaList.get(i);
-                    if (gejala.isSelected()) {
-                        gejalaPilihan.append(gejala.getStGejala()).append("#");
-                    }
-                }
-
-                if (gejalaPilihan.toString().equals("")) {
+                if (selected.isEmpty()){
                     Toast.makeText(DeteksiActivity.this, "Silahkan pilih gejala terlebih dahulu!", Toast.LENGTH_SHORT).show();
-                } else {
-                    // menampilkan activity hasil deteksi
-                    Intent intent = new Intent(view.getContext(), HasilDeteksiActivity.class);
-                    intent.putExtra("HASIL", gejalaPilihan.toString());
-                    startActivity(intent);
+                    return;
                 }
+                if (selected.size() < 3){
+                    Toast.makeText(DeteksiActivity.this, "Minimal Harus Memilih 3 Gejala", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<String> selectedGejala = selected.stream().map(Gejala::getKodeGejala).collect(Collectors.toList());
+//                selectedGejala.forEach(g -> Log.i("SELECTED_KODE", g));
+
+                DetectorPenyakit detectorPenyakit = new DetectorPenyakit(getApplicationContext());
+                String hasil = detectorPenyakit.determinePenyakit(selectedGejala);
+
+                // menampilkan activity hasil deteksi
+                Intent intent = new Intent(view.getContext(), HasilDeteksiActivity.class);
+                intent.putExtra("HASIL", hasil);
+                startActivity(intent);
             }
         });
 
@@ -89,26 +98,22 @@ public class DeteksiActivity extends AppCompatActivity {
     }
 
     private void getListData() {
-        modelDeteksiArrayList = databaseHelper.getDaftarGejala();
-        if (modelDeteksiArrayList.size() == 0) {
+        listGejala = databaseHelper.getListGejala();
+        if (listGejala.size() == 0) {
             rvDeteksiPenyakit.setVisibility(View.GONE);
         } else {
             rvDeteksiPenyakit.setVisibility(View.VISIBLE);
-            deteksiAdapter = new DeteksiAdapter(this, modelDeteksiArrayList);
-            rvDeteksiPenyakit.setAdapter(deteksiAdapter);
+            gejalaAdapter = new GejalaAdapter(this, listGejala);
+            rvDeteksiPenyakit.setAdapter(gejalaAdapter);
         }
     }
 
     private void setStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
-        if (Build.VERSION.SDK_INT >= 21) {
-            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+        setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
     private static void setWindowFlag(Activity activity, final int bits, boolean on) {

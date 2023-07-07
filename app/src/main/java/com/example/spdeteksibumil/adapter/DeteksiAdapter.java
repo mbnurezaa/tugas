@@ -21,6 +21,8 @@ public class DeteksiAdapter extends RecyclerView.Adapter<DeteksiAdapter.DeteksiH
     private Context ctx;
     private ArrayList<ModelDeteksi> modelDeteksiArrayList;
 
+    private ArrayList<ModelDeteksi> selectedPenyakit;
+
     public DeteksiAdapter(Context context, ArrayList<ModelDeteksi> items){
         this.ctx = context;
         this.modelDeteksiArrayList = new ArrayList<>();
@@ -41,7 +43,7 @@ public class DeteksiAdapter extends RecyclerView.Adapter<DeteksiAdapter.DeteksiH
 
             @Override
             public void onCheckedChanged(CompoundButton checkboxView, boolean isChecked) {
-                ModelDeteksi modelDeteksi =(ModelDeteksi) checkboxView.getTag();
+                ModelDeteksi modelDeteksi = (ModelDeteksi) checkboxView.getTag();
 
                 if(isChecked) {
                     if (varGlobal >= 6) {
