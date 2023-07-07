@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.example.spdeteksibumil.database.DatabaseHelper;
 import com.example.spdeteksibumil.model.Gejala;
 import com.example.spdeteksibumil.model.ModelDaftarPenyakit;
@@ -11,7 +13,6 @@ import com.example.spdeteksibumil.model.Rule;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,7 @@ public class DetectorPenyakit {
         rules = databaseHelper.getRules();
     }
 
+    @Nullable
     public String determinePenyakit(List<String> gejala) {
         List<String> matchedPenyakit = new ArrayList<>();
         for (Rule rule : rules) {
@@ -52,20 +54,24 @@ public class DetectorPenyakit {
             }
         }
 
+        matchedPenyakit.removeIf(kodePenyakit -> !gejala.containsAll(getGejalaByPenyakit(kodePenyakit)));
+
         if (matchedPenyakit.isEmpty()) {
-            return "Tidak ditemukan penyakit yang sesuai dengan gejala";
+            return null;
         } else {
             return matchedPenyakit.get(0);
         }
     }
 
     private List<String> getGejalaByPenyakit(String kodePenyakit) {
+        Log.i("Penyakit", kodePenyakit);
         List<String> gejalaList = new ArrayList<>();
         for (Rule rule : rules) {
             if (rule.getKodePenyakit().equals(kodePenyakit)) {
                 gejalaList.add(rule.getKodeGejala());
             }
         }
+
         return gejalaList;
     }
 }

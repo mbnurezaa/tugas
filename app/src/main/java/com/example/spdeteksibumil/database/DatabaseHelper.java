@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME = "bumil.db";
+    private static String DB_NAME = "bumil_new.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 

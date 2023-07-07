@@ -58,7 +58,7 @@ public class GejalaAdapter extends RecyclerView.Adapter<GejalaAdapter.DeteksiHol
             }
         });
 
-        holder.cbGejala.setText(data.getNamaGejala());
+        holder.cbGejala.setText(data.getNamaGejala().trim() + " - " + data.getKodeGejala());
         holder.cbGejala.setChecked(data.isSelected());
         holder.cbGejala.setTag(data);
     }
@@ -71,6 +71,14 @@ public class GejalaAdapter extends RecyclerView.Adapter<GejalaAdapter.DeteksiHol
     public ArrayList<Gejala> getSelectedGejala() {
         Predicate<Gejala> hasTrue = Gejala::isSelected;
         return (ArrayList<Gejala>) this.listGejala.stream().filter(hasTrue).collect(Collectors.toList());
+    }
+
+    public void resetChecked() {
+        listGejala.forEach(e -> e.setSelected(false));
+        for (int i = 0; i < listGejala.size(); i++) {
+            listGejala.get(i).setSelected(false);
+        }
+        notifyDataSetChanged();
     }
 
     static class DeteksiHolder extends RecyclerView.ViewHolder {

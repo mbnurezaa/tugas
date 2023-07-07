@@ -86,6 +86,11 @@ public class DeteksiActivity extends AppCompatActivity {
 
                 DetectorPenyakit detectorPenyakit = new DetectorPenyakit(getApplicationContext());
                 String hasil = detectorPenyakit.determinePenyakit(selectedGejala);
+                if (hasil == null){
+                    gejalaAdapter.resetChecked();
+                    Toast.makeText(DeteksiActivity.this, "Tidak ditemukan penyakit yang sesuai dengan gejala", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // menampilkan activity hasil deteksi
                 Intent intent = new Intent(view.getContext(), HasilDeteksiActivity.class);
