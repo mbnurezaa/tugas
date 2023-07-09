@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.spdeteksibumil.R;
 import com.example.spdeteksibumil.database.DatabaseHelper;
@@ -17,9 +18,9 @@ public class HasilDeteksiActivity extends AppCompatActivity {
 
     SQLiteDatabase sqLiteDatabase;
     DatabaseHelper databaseHelper;
-
     TextView tvNamaPenyakit;
     TextView tvSaran;
+    Toolbar toolbar;
 
     private Penyakit penyakit = null;
 
@@ -30,6 +31,13 @@ public class HasilDeteksiActivity extends AppCompatActivity {
 
         tvNamaPenyakit = findViewById(R.id.tvPenyakit);
         tvSaran = findViewById(R.id.tvPenanganan);
+        toolbar = findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         Intent intent = getIntent();
         databaseHelper = new DatabaseHelper(this);
