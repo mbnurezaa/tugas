@@ -1,18 +1,24 @@
 package com.example.spdeteksibumil.model;
 
 public class Rule {
-    private String idRule;
+    private String id;
+    private String kodeRule;
     private String kodePenyakit;
     private String kodeGejala;
 
-    public Rule(String idRule, String kodePenyakit, String kodeGejala) {
-        this.idRule = idRule;
+    public Rule(String id, String kodeRule, String kodePenyakit, String kodeGejala) {
+        this.id = id;
+        this.kodeRule = kodeRule;
         this.kodePenyakit = kodePenyakit;
         this.kodeGejala = kodeGejala;
     }
 
-    public String getIdRule() {
-        return idRule;
+    public String getId() {
+        return id;
+    }
+
+    public String getKodeRule() {
+        return kodeRule;
     }
 
     public String getKodePenyakit() {

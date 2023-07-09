@@ -6,11 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
 import com.example.spdeteksibumil.model.Gejala;
-import com.example.spdeteksibumil.model.ModelDaftarPenyakit;
-import com.example.spdeteksibumil.model.ModelDeteksi;
 import com.example.spdeteksibumil.model.Penyakit;
 import com.example.spdeteksibumil.model.Rule;
 
@@ -23,7 +19,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME = "bumil_new.sqlite";
+    private static String DB_NAME = "bumil.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 
@@ -113,16 +109,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //get list daftar penyakit
-    public ArrayList<ModelDaftarPenyakit> getDaftarPenyakit() {
-        ArrayList<ModelDaftarPenyakit> draftOffline = new ArrayList<>();
+    public ArrayList<Penyakit> getListPenyakit() {
+        ArrayList<Penyakit> draftOffline = new ArrayList<>();
         SQLiteDatabase database = this.getWritableDatabase();
-        String selectQuery = "SELECT kode_penyakit, nama_penyakit FROM penyakit ORDER BY kode_penyakit";
+        String selectQuery = "SELECT kode, nama FROM penyakit ORDER BY kode";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                ModelDaftarPenyakit modelDraftOffline = new ModelDaftarPenyakit();
-                modelDraftOffline.setStrKode(cursor.getString(0));
-                modelDraftOffline.setStrDaftarPenyakit(cursor.getString(1));
+                Penyakit modelDraftOffline = new Penyakit(
+                        cursor.getString(0),
+                        cursor.getString(1)
+                );
                 draftOffline.add(modelDraftOffline);
             } while (cursor.moveToNext());
         }
@@ -134,7 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Gejala> getListGejala() {
         ArrayList<Gejala> draftOffline = new ArrayList<>();
         SQLiteDatabase database = this.getWritableDatabase();
-        String selectQuery = "SELECT kode_gejala, nama_gejala FROM gejala ORDER BY kode_gejala";
+        String selectQuery = "SELECT kode, nama FROM gejala ORDER BY kode";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
@@ -147,38 +144,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return draftOffline;
     }
 
-    //get list gejala
-    public ArrayList<ModelDeteksi> getDaftarGejala() {
-        ArrayList<ModelDeteksi> draftOffline = new ArrayList<>();
-        SQLiteDatabase database = this.getWritableDatabase();
-        String selectQuery = "SELECT nama_gejala FROM gejala ORDER BY kode_gejala";
-        Cursor cursor = database.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            do {
-                ModelDeteksi modelDraftOffline = new ModelDeteksi();
-                modelDraftOffline.setStGejala(cursor.getString(0));
-                draftOffline.add(modelDraftOffline);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
-        return draftOffline;
-    }
-
-    @Nullable
-    public Penyakit getPenyakitById(String id) {
+    //    @Nullable
+    public Penyakit getPenyakitBykode(String kode_penyakit) {
         Penyakit penyakit = null;
         SQLiteDatabase database = this.getWritableDatabase();
-        String selectQuery = "SELECT kode_penyakit, nama_penyakit, deskripsi, saran FROM penyakit where kode_penyakit = " + id ;
+        String selectQuery = "SELECT kode, nama, deskripsi, saran FROM penyakit where kode = '" + kode_penyakit + "'";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 penyakit = new Penyakit(
                         cursor.getString(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3)
+                        cursor.getString(1)
                 );
+                penyakit.setDeskripsi(cursor.getString(2));
+                penyakit.setSaran(cursor.getString(3));
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -186,17 +165,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return penyakit;
     }
 
-    public ArrayList<Rule> getRules() {
+    public ArrayList<Rule> getAturanPenyakit() {
         ArrayList<Rule> draftOffline = new ArrayList<>();
         SQLiteDatabase database = this.getWritableDatabase();
-        String selectQuery = "SELECT id_rule, kode_penyakit, kode_gejala FROM rule ORDER BY id_rule";
+        String selectQuery = "SELECT id, kode_aturan, kode_penyakit, kode_gejala FROM aturan_penyakit ORDER BY id";
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
                 Rule modelDraftOffline = new Rule(
                         cursor.getString(0),
                         cursor.getString(1),
-                        cursor.getString(2)
+                        cursor.getString(2),
+                        cursor.getString(3)
                 );
                 draftOffline.add(modelDraftOffline);
             } while (cursor.moveToNext());

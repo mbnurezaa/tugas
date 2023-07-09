@@ -1,15 +1,5 @@
 package com.example.spdeteksibumil.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.spdeteksibumil.R;
-import com.example.spdeteksibumil.adapter.PenyakitAdapter;
-import com.example.spdeteksibumil.database.DatabaseHelper;
-import com.example.spdeteksibumil.model.ModelDaftarPenyakit;
-
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -20,13 +10,23 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.spdeteksibumil.R;
+import com.example.spdeteksibumil.adapter.PenyakitAdapter;
+import com.example.spdeteksibumil.database.DatabaseHelper;
+import com.example.spdeteksibumil.model.Penyakit;
+
 import java.util.ArrayList;
 
 public class DaftarPenyakitActivity extends AppCompatActivity {
 
     SQLiteDatabase sqLiteDatabase;
     DatabaseHelper databaseHelper;
-    ArrayList<ModelDaftarPenyakit> modelDaftarPenyakitList = new ArrayList<>();
+    ArrayList<Penyakit> modelDaftarPenyakitList = new ArrayList<>();
     PenyakitAdapter penyakitAdapter;
     RecyclerView rvDaftarPenyakit;
     Toolbar toolbar;
@@ -62,7 +62,7 @@ public class DaftarPenyakitActivity extends AppCompatActivity {
     }
 
     private void getListdata() {
-        modelDaftarPenyakitList = databaseHelper.getDaftarPenyakit();
+        modelDaftarPenyakitList = databaseHelper.getListPenyakit();
         if (modelDaftarPenyakitList.size() == 0) {
             rvDaftarPenyakit.setVisibility(View.GONE);
         } else {
@@ -73,18 +73,13 @@ public class DaftarPenyakitActivity extends AppCompatActivity {
     }
 
     private void setStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        }
-
-        if (Build.VERSION.SDK_INT >= 24) {
-            setWindowFlag (this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
-    public static void setWindowFlag(Activity activity, final int bits, boolean on){
+    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
         Window window = activity.getWindow();
         WindowManager.LayoutParams layoutParams = window.getAttributes();
         if (on) {

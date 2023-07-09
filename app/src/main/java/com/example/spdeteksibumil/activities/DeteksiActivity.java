@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -14,17 +12,15 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.spdeteksibumil.R;
-import com.example.spdeteksibumil.adapter.DeteksiAdapter;
 import com.example.spdeteksibumil.adapter.GejalaAdapter;
 import com.example.spdeteksibumil.database.DatabaseHelper;
 import com.example.spdeteksibumil.model.Gejala;
-import com.example.spdeteksibumil.model.ModelDeteksi;
-import com.example.spdeteksibumil.services.DetectorPenyakit;
+import com.example.spdeteksibumil.services.ForwardChaining;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
@@ -72,22 +68,22 @@ public class DeteksiActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ArrayList<Gejala> selected = gejalaAdapter.getSelectedGejala();
 
-                if (selected.isEmpty()){
+                if (selected.isEmpty()) {
                     Toast.makeText(DeteksiActivity.this, "Silahkan pilih gejala terlebih dahulu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (selected.size() < 3){
+                if (selected.size() < 3) {
                     Toast.makeText(DeteksiActivity.this, "Minimal Harus Memilih 3 Gejala", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 List<String> selectedGejala = selected.stream().map(Gejala::getKodeGejala).collect(Collectors.toList());
-//                selectedGejala.forEach(g -> Log.i("SELECTED_KODE", g));
 
-                DetectorPenyakit detectorPenyakit = new DetectorPenyakit(getApplicationContext());
-                String hasil = detectorPenyakit.determinePenyakit(selectedGejala);
-                if (hasil == null){
-                    gejalaAdapter.resetChecked();
+                ForwardChaining forwardChaining = new ForwardChaining(getApplicationContext(), selectedGejala);
+                String hasil = forwardChaining.determinePenyakit();
+
+                if (hasil == null) {
+//                    gejalaAdapter.resetChecked();
                     Toast.makeText(DeteksiActivity.this, "Tidak ditemukan penyakit yang sesuai dengan gejala", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -142,7 +138,7 @@ public class DeteksiActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         getListData();
     }

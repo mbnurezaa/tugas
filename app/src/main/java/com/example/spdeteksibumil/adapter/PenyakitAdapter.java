@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spdeteksibumil.R;
 import com.example.spdeteksibumil.activities.DetailPenyakitActivity;
-import com.example.spdeteksibumil.model.ModelDaftarPenyakit;
+import com.example.spdeteksibumil.model.Penyakit;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -19,37 +20,40 @@ import java.util.ArrayList;
 public class PenyakitAdapter extends RecyclerView.Adapter<PenyakitAdapter.PenyakitHolder> {
 
     private Context ctx;
-    private ArrayList<ModelDaftarPenyakit> modelDaftarPenyakitArrayList;
+    private ArrayList<Penyakit> modelDaftarPenyakitArrayList;
 
-    public PenyakitAdapter(Context context, ArrayList<ModelDaftarPenyakit> items){
+    public PenyakitAdapter(Context context, ArrayList<Penyakit> items) {
         this.ctx = context;
         this.modelDaftarPenyakitArrayList = items;
     }
 
+    @NonNull
     @Override
-    public PenyakitAdapter.PenyakitHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_penyakit,parent, false );
+    public PenyakitAdapter.PenyakitHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_penyakit, parent, false);
         return new PenyakitHolder(view);
     }
 
     @Override
     public void onBindViewHolder(PenyakitAdapter.PenyakitHolder holder, final int position) {
-        final ModelDaftarPenyakit data = modelDaftarPenyakitArrayList.get(position);
+        final Penyakit data = modelDaftarPenyakitArrayList.get(position);
 
-        holder.KodePenyakit.setText(data.getStrKode());
-        holder.NamaPenyakit.setText(data.getStDaftarPenyakit());
+        holder.KodePenyakit.setText(data.getKode());
+        holder.NamaPenyakit.setText(data.getNama());
 
         holder.cvListData.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 ctx.startActivity(new Intent(ctx, DetailPenyakitActivity.class)
-                        .putExtra("KODE_PENYAKIT", data.getStrKode()));
+                        .putExtra("KODE_PENYAKIT", data.getKode()));
             }
         });
     }
 
     @Override
-    public int getItemCount() { return modelDaftarPenyakitArrayList.size(); }
+    public int getItemCount() {
+        return modelDaftarPenyakitArrayList.size();
+    }
 
     static class PenyakitHolder extends RecyclerView.ViewHolder {
         public MaterialCardView cvListData;

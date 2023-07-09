@@ -13,11 +13,11 @@
         <FrameLayout
             android:id="@+id/frameHeader"
             android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="266dp"
+                android:layout_height="230dp"
                 android:background="@drawable/bg_corner"
                 android:orientation="horizontal">
 

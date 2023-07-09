@@ -3,7 +3,7 @@ package com.example.spdeteksibumil.activities;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +29,7 @@ public class HasilDeteksiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasil_deteksi);
 
+        toolbar = findViewById(R.id.toolbar);
         tvNamaPenyakit = findViewById(R.id.tvPenyakit);
         tvSaran = findViewById(R.id.tvPenanganan);
         toolbar = findViewById(R.id.toolbar);
@@ -45,16 +46,25 @@ public class HasilDeteksiActivity extends AppCompatActivity {
             sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         String hasil = intent.getStringExtra("HASIL");
-        penyakit = databaseHelper.getPenyakitById(hasil);
+        penyakit = databaseHelper.getPenyakitBykode(hasil);
 
 //        cek apakah ada data penyakit
-        if (penyakit == null){
+        if (penyakit == null) {
             Toast.makeText(HasilDeteksiActivity.this, "Penyakit tidak ditemukan!", Toast.LENGTH_SHORT).show();
             finish();
+        } else {
+            tvNamaPenyakit.setText(penyakit.getNama());
+            tvSaran.setText(penyakit.getSaran());
+//        Log.i("Deskripsi", penyakit.getDeskripsi());
         }
+    }
 
-        tvNamaPenyakit.setText(penyakit.getNama());
-        tvSaran.setText(penyakit.getSaran());
-        Log.i("Deskripsi", penyakit.getDeskripsi());
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -6,11 +6,9 @@ public class Penyakit {
     private String deskripsi;
     private String saran;
 
-    public Penyakit(String kode, String nama, String deskripsi, String saran) {
+    public Penyakit(String kode, String nama) {
         this.kode = kode;
         this.nama = nama;
-        this.deskripsi = deskripsi;
-        this.saran = saran;
     }
 
     public String getKode() {
@@ -27,5 +25,13 @@ public class Penyakit {
 
     public String getSaran() {
         return saran;
+    }
+
+    public void setDeskripsi(String deskripsi) {
+        this.deskripsi = deskripsi;
+    }
+
+    public void setSaran(String saran) {
+        this.saran = saran;
     }
 }
