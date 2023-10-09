@@ -2,7 +2,6 @@ package com.example.spdeteksibumil.services;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -33,8 +32,7 @@ public class ForwardChaining {
         dataFaktaGejala = selectedList;
     }
 
-    @Nullable
-    public String determinePenyakit() {
+    public Map<String, Object> determinePenyakit() {
         // Inisialisasi pengetahuan
         Map<String, List<String>> pengetahuan = new HashMap<>();
         for (Rule aturan : dataAturan) {
@@ -46,9 +44,11 @@ public class ForwardChaining {
             }
 
             Objects.requireNonNull(pengetahuan.get(kodeRule)).add(gejala);
+
         }
 
         // Proses Forward Chaining
+        List<String> kodeRules = new ArrayList<>();
         List<String> kodeAturanDitemukan = new ArrayList<>();
 
         for (Rule aturan : dataAturan) {
@@ -57,15 +57,23 @@ public class ForwardChaining {
 
             if (gejalaRule.size() == dataFaktaGejala.size() && new HashSet<>(gejalaRule).containsAll(dataFaktaGejala)) {
                 kodeAturanDitemukan.add(aturan.getKodePenyakit());
+                kodeRules.add(aturan.getKodeRule());
             }
         }
 
         // Output hasil
+        Map<String, Object> gejala = new HashMap<>();
+
         if (kodeAturanDitemukan.isEmpty()) {
-            return null;
+            gejala.put("hasil", null);
         } else {
-            return kodeAturanDitemukan.get(0);
+            String hasil = kodeAturanDitemukan.get(0);
+            ArrayList<String> listGejala = databaseHelper.getListGejalaByKode(Objects.requireNonNull(pengetahuan.get(kodeRules.get(0))));
+
+            gejala.put("hasil", hasil);
+            gejala.put("gejala_list", (ArrayList<String>) listGejala);
         }
+        return gejala;
     }
 
 }

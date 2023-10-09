@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -137,6 +138,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 Gejala gejala = new Gejala(cursor.getString(0), cursor.getString(1));
                 draftOffline.add(gejala);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return draftOffline;
+    }
+
+    public ArrayList<String> getListGejalaByKode(List<String> kodes) {
+        ArrayList<String> draftOffline = new ArrayList<>();
+        SQLiteDatabase database = this.getWritableDatabase();
+        StringBuilder query = new StringBuilder("SELECT kode, nama FROM gejala WHERE kode IN (");
+        for (int i = 0; i < kodes.size(); i++) {
+            query.append("'" + kodes.get(i) + "'");
+            if (i < kodes.size() - 1) {
+                query.append(", ");
+            }
+        }
+        query.append(") ORDER BY kode");
+        Cursor cursor = database.rawQuery(String.valueOf(query), null);
+        if (cursor.moveToFirst()) {
+            do {
+                Gejala gejala = new Gejala(cursor.getString(0), cursor.getString(1));
+                draftOffline.add(gejala.getNamaGejala());
             } while (cursor.moveToNext());
         }
         cursor.close();

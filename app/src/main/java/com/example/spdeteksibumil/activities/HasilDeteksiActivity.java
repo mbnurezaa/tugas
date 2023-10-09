@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spdeteksibumil.R;
+import com.example.spdeteksibumil.adapter.GejalaPenyakitAdapter;
 import com.example.spdeteksibumil.database.DatabaseHelper;
 import com.example.spdeteksibumil.model.Gejala;
 import com.example.spdeteksibumil.model.Penyakit;
@@ -28,6 +31,7 @@ public class HasilDeteksiActivity extends AppCompatActivity {
     Toolbar toolbar;
     MaterialButton btnDeteksiUlang;
     MaterialButton btnDaftarPenyakit;
+    RecyclerView rvGejala;
     
     private Penyakit penyakit = null;
 
@@ -42,6 +46,7 @@ public class HasilDeteksiActivity extends AppCompatActivity {
         tvSaran = findViewById(R.id.tvPenanganan);
         btnDeteksiUlang = findViewById(R.id.btnDeteksiUlang);
         btnDaftarPenyakit = findViewById(R.id.btnDaftarPenyakit);
+        rvGejala = findViewById(R.id.rvGejala);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -69,6 +74,14 @@ public class HasilDeteksiActivity extends AppCompatActivity {
             sqLiteDatabase = databaseHelper.getReadableDatabase();
 
         String hasil = intent.getStringExtra("HASIL");
+        ArrayList<String> gejala = intent.getStringArrayListExtra("gejala");
+
+        GejalaPenyakitAdapter adapterGejala = new GejalaPenyakitAdapter(this, gejala);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        rvGejala.setLayoutManager(layoutManager);
+        rvGejala.setAdapter(adapterGejala);
+
         penyakit = databaseHelper.getPenyakitBykode(hasil);
 
 //        cek apakah ada data penyakit

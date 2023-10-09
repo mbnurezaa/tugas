@@ -23,6 +23,8 @@ import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DeteksiActivity extends AppCompatActivity {
@@ -76,9 +78,12 @@ public class DeteksiActivity extends AppCompatActivity {
                 List<String> selectedGejala = selected.stream().map(Gejala::getKodeGejala).collect(Collectors.toList());
 
                 ForwardChaining forwardChaining = new ForwardChaining(getApplicationContext(), selectedGejala);
-                String hasil = forwardChaining.determinePenyakit();
+                Map<String, Object> hasil = forwardChaining.determinePenyakit();
 
-                if (hasil == null) {
+                ArrayList<String> gejalaPenyakit = (ArrayList<String>) hasil.get("gejala_list");
+
+
+                if (hasil.get("hasil") == null) {
 //                    gejalaAdapter.resetChecked();
                     Toast.makeText(DeteksiActivity.this, "Tidak ditemukan penyakit yang sesuai dengan gejala", Toast.LENGTH_SHORT).show();
                     return;
@@ -86,7 +91,8 @@ public class DeteksiActivity extends AppCompatActivity {
 
                 // menampilkan activity hasil deteksi
                 Intent intent = new Intent(view.getContext(), HasilDeteksiActivity.class);
-                intent.putExtra("HASIL", hasil);
+                intent.putExtra("HASIL", (String) hasil.get("hasil"));
+                intent.putStringArrayListExtra("gejala", gejalaPenyakit);
                 startActivity(intent);
             }
         });
