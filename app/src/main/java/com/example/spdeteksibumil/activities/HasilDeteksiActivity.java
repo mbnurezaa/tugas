@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,16 +13,22 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.spdeteksibumil.R;
 import com.example.spdeteksibumil.database.DatabaseHelper;
+import com.example.spdeteksibumil.model.Gejala;
 import com.example.spdeteksibumil.model.Penyakit;
+import com.google.android.material.button.MaterialButton;
+
+import java.util.ArrayList;
 
 public class HasilDeteksiActivity extends AppCompatActivity {
 
     SQLiteDatabase sqLiteDatabase;
     DatabaseHelper databaseHelper;
-    TextView tvNamaPenyakit;
-    TextView tvSaran;
+    TextView tvNamaPenyakit, tvSaran;;
+   // TextView tvGejala;
     Toolbar toolbar;
-
+    MaterialButton btnDeteksiUlang;
+    MaterialButton btnDaftarPenyakit;
+    
     private Penyakit penyakit = null;
 
     @Override
@@ -30,15 +37,31 @@ public class HasilDeteksiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hasil_deteksi);
 
         toolbar = findViewById(R.id.toolbar);
+        //tvGejala = findViewById(R.id.tvGejala);
         tvNamaPenyakit = findViewById(R.id.tvPenyakit);
         tvSaran = findViewById(R.id.tvPenanganan);
-        toolbar = findViewById(R.id.toolbar);
+        btnDeteksiUlang = findViewById(R.id.btnDeteksiUlang);
+        btnDaftarPenyakit = findViewById(R.id.btnDaftarPenyakit);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        btnDeteksiUlang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HasilDeteksiActivity.this, DeteksiActivity.class);
+                startActivity(intent);
+            }
+        });
+        btnDaftarPenyakit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HasilDeteksiActivity.this, DaftarPenyakitActivity.class);
+                startActivity(intent);
+            }
+        });
 
         Intent intent = getIntent();
         databaseHelper = new DatabaseHelper(this);

@@ -1,17 +1,18 @@
 package com.example.spdeteksibumil.activities;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import com.example.spdeteksibumil.R;
 import com.google.android.material.card.MaterialCardView;
 
-public class ArtikelActivity extends AppCompatActivity {
+public class BantuanActivity extends AppCompatActivity {
 
     MaterialCardView mcSatu, mcDua, mcTiga;
     Toolbar toolbar;
@@ -19,12 +20,12 @@ public class ArtikelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artikel);
+        setContentView(R.layout.activity_bantuan);
 
+        toolbar = findViewById(R.id.toolbar);
         mcSatu = findViewById(R.id.mcSatu);
         mcDua = findViewById(R.id.mcDua);
         mcTiga = findViewById(R.id.mcTiga);
-        toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -34,21 +35,21 @@ public class ArtikelActivity extends AppCompatActivity {
         mcSatu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ArtikelActivity.this, ArtikelSatuActivity.class);
+                Intent intent = new Intent(BantuanActivity.this, BantuanSatuActivity.class);
                 startActivity(intent);
             }
         });
         mcDua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ArtikelActivity.this, ArtikelDuaActivity.class);
+                Intent intent = new Intent(BantuanActivity.this, BantuanDuaActivity.class);
                 startActivity(intent);
             }
         });
         mcTiga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ArtikelActivity.this, ArtikelTigaActivity.class);
+                Intent intent = new Intent(BantuanActivity.this, BantuanTigaActivity.class);
                 startActivity(intent);
             }
         });

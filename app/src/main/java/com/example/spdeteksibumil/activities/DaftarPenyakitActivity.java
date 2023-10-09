@@ -7,8 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,8 +33,6 @@ public class DaftarPenyakitActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daftar_penyakit);
-
-        setStatusBar();
 
         toolbar = findViewById(R.id.toolbar);
         rvDaftarPenyakit = findViewById(R.id.rvDaftarPenyakit);
@@ -70,24 +66,6 @@ public class DaftarPenyakitActivity extends AppCompatActivity {
             penyakitAdapter = new PenyakitAdapter(this, modelDaftarPenyakitList);
             rvDaftarPenyakit.setAdapter(penyakitAdapter);
         }
-    }
-
-    private void setStatusBar() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-    }
-
-    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
-        Window window = activity.getWindow();
-        WindowManager.LayoutParams layoutParams = window.getAttributes();
-        if (on) {
-            layoutParams.flags |= bits;
-        } else {
-            layoutParams.flags &= ~bits;
-        }
-        window.setAttributes(layoutParams);
     }
 
     @Override

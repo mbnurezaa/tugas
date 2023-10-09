@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static String DB_NAME = "bumil.sqlite";
+    private static String DB_NAME = "detectorbumil.sqlite";
     private static String DB_PATH = "";
     private static final int DB_VERSION = 1;
 

@@ -45,14 +45,14 @@ public class GejalaAdapter extends RecyclerView.Adapter<GejalaAdapter.DeteksiHol
         holder.cbGejala.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton checkboxView, boolean isChecked) {
-                if (isChecked) {
-                    if (getSelectedGejala().size() == 6) {
-                        listGejala.get(position).setSelected(false);
-                        checkboxView.setChecked(false);
-                        Toast.makeText(ctx, "Maaf, Maksimal Memilih 6 Gejala", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
+              //  if (isChecked) {
+              //      if (getSelectedGejala().size() == 6) {
+               //         listGejala.get(position).setSelected(false);
+               //         checkboxView.setChecked(false);
+               //         Toast.makeText(ctx, "Maaf, Maksimal Memilih 6 Gejala", Toast.LENGTH_SHORT).show();
+                //        return;
+                //    }
+                //}
                 listGejala.get(position).setSelected(isChecked);
                 checkboxView.setChecked(isChecked);
             }

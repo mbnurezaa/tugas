@@ -13,6 +13,27 @@
         android:theme="@style/Theme.SPDeteksiBumil"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ArtikelTigaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ArtikelDuaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ArtikelSatuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BantuanTigaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BantuanDuaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BantuanSatuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.BantuanActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ArtikelActivity"
             android:exported="false" />
         <activity

@@ -43,7 +43,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/frameHeader"
         android:layout_marginTop="55dp">
 
         <LinearLayout
@@ -52,6 +51,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcSatu"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
@@ -59,7 +59,7 @@
                 app:cardElevation="10dp"
                 app:strokeWidth="2dp">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -67,47 +67,63 @@
                         android:id="@+id/ivAnemia"
                         android:layout_width="150dp"
                         android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
                         android:padding="10dp"
-                        android:src="@drawable/artikelsatu" />
+                        android:src="@drawable/artikelsatu"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_toEndOf="@id/ivAnemia"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Gejala Anemia Pada Ibu Hamil dan Cara Mengatasinya"
+                        android:text="Gejala Anemia Pada Ibu Hamil \ndan Cara Mengatasinya"
                         android:textColor="#FA6484"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.196"
+                        app:layout_constraintStart_toEndOf="@+id/ivAnemia"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
-                        android:layout_toEndOf="@id/ivAnemia"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="dr. Allert Benedicto - Alodokter"
                         android:textColor="#FA6484"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.196"
+                        app:layout_constraintStart_toEndOf="@+id/ivAnemia"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView9"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
                         android:layout_marginTop="70dp"
-                        android:layout_toEndOf="@id/ivAnemia"
                         android:fontFamily="@font/poppins_bold"
                         android:text="Baca Selengkapnya >"
                         android:textColor="#FA6484"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.851"
+                        app:layout_constraintStart_toEndOf="@+id/ivAnemia"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcDua"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
@@ -115,7 +131,7 @@
                 app:cardElevation="10dp"
                 app:strokeWidth="2dp">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -123,55 +139,71 @@
                         android:id="@+id/ivOlahraga"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:padding="10dp"
-                        android:src="@drawable/artikeltiga" />
+                        android:src="@drawable/artikeltiga"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_toEndOf="@id/ivOlahraga"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="6 Olahraga yang Aman Untuk Ibu Hamil Trimester 2"
+                        android:text="6 Olahraga yang Aman untuk \nIbu Hamil Trimester 2"
                         android:textColor="#FA6484"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.196"
+                        app:layout_constraintStart_toEndOf="@+id/ivOlahraga"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="40dp"
-                        android:layout_toEndOf="@id/ivOlahraga"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins"
                         android:text="Annisa Amalia - Generasimaju"
                         android:textColor="#FA6484"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.196"
+                        app:layout_constraintStart_toEndOf="@+id/ivOlahraga"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
                         android:layout_marginTop="70dp"
-                        android:layout_toEndOf="@id/ivOlahraga"
                         android:fontFamily="@font/poppins_bold"
                         android:text="Baca Selengkapnya >"
                         android:textColor="#FA6484"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.851"
+                        app:layout_constraintStart_toEndOf="@id/ivOlahraga"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcTiga"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
                 app:strokeWidth="2dp">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -180,41 +212,57 @@
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:src="@drawable/artikeldua" />
+                        android:src="@drawable/artikeldua"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_toEndOf="@id/ivTiga"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Adakah  Cara Pencegahan untuk  Kondisi Hiperemesis Gravidarium?"
+                        android:text="Adakah  Cara Pencegahan \nuntuk Kondisi Hiperemesis \nGravidarium?"
                         android:textColor="#FA6484"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.196"
+                        app:layout_constraintStart_toEndOf="@id/ivTiga"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:layout_toEndOf="@id/ivTiga"
+                        android:layout_marginTop="57dp"
+                        android:layout_marginEnd="10dp"
                         android:fontFamily="@font/poppins"
-                        android:text="dr. Allert Benedicto - Alodokter"
+                        android:text="dr. Gabriella Florencia - Halodoc"
                         android:textColor="#FA6484"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.241"
+                        app:layout_constraintStart_toEndOf="@+id/ivTiga"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="70dp"
-                        android:layout_toEndOf="@id/ivTiga"
+                        android:layout_marginTop="80dp"
                         android:fontFamily="@font/poppins_bold"
                         android:text="Baca Selengkapnya >"
                         android:textColor="#FA6484"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.851"
+                        app:layout_constraintStart_toEndOf="@id/ivTiga"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 

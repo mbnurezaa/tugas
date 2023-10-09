@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="80dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="70dp"
                     android:layout_marginRight="20dp"
                     app:srcCompat="@drawable/medical" />
 
@@ -34,7 +34,7 @@
                     android:id="@+id/textView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="125dp"
+                    android:layout_marginTop="100dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Hasil \n Deteksi"
                     android:textAlignment="center"
@@ -61,6 +61,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:fontFamily="@font/poppins_bold"
+                    android:text="GEJALA YANG DIPILIH:"
+                    android:textColor="#FA6484"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvGejala"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_weight="1"
+                    android:textColor="#FA6484"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="ANDA TERDETEKSI MENGALAMI :"
                     android:textColor="#FA6484"
                     android:textSize="16sp"
@@ -71,17 +93,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:padding="4dp"
-                    android:textColor="@color/black"
+                    android:textColor="#FA6484"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/poppins_bold"
                     android:text="SARAN PENANGANAN :"
                     android:textColor="#FA6484"
@@ -92,11 +114,11 @@
                     android:id="@+id/tvPenanganan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:textColor="#FA6484"
                     android:textSize="16sp" />
 
                 <com.google.android.material.button.MaterialButton

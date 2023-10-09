@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/abLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#DE7292"
@@ -44,13 +43,12 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/abLayout"
         android:layout_marginTop="60dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -76,15 +74,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="sans-serif"
                 android:textColor="#FA6484"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Saran Penanganan:"
                 android:textColor="#FA6484"
@@ -97,9 +95,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="sans-serif"
                 android:textColor="#FA6484"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

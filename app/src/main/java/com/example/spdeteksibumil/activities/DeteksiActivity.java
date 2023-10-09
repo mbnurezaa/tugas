@@ -7,8 +7,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,8 +40,6 @@ public class DeteksiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deteksi);
 
-        setStatusBar();
-
         databaseHelper = new DatabaseHelper(this);
         if (databaseHelper.openDatabase())
             sqLiteDatabase = databaseHelper.getReadableDatabase();
@@ -72,10 +68,10 @@ public class DeteksiActivity extends AppCompatActivity {
                     Toast.makeText(DeteksiActivity.this, "Silahkan pilih gejala terlebih dahulu!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (selected.size() < 3) {
-                    Toast.makeText(DeteksiActivity.this, "Minimal Harus Memilih 3 Gejala", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+               // if (selected.size() < 3) {
+                //    Toast.makeText(DeteksiActivity.this, "Minimal Harus Memilih 3 Gejala", Toast.LENGTH_SHORT).show();
+                //    return;
+                //}
 
                 List<String> selectedGejala = selected.stream().map(Gejala::getKodeGejala).collect(Collectors.toList());
 
@@ -109,23 +105,10 @@ public class DeteksiActivity extends AppCompatActivity {
         }
     }
 
-    private void setStatusBar() {
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-        setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-    }
-
-    private static void setWindowFlag(Activity activity, final int bits, boolean on) {
-        Window window = activity.getWindow();
-        WindowManager.LayoutParams layoutParams = window.getAttributes();
-        if (on) {
-            layoutParams.flags |= bits;
-        } else {
-            layoutParams.flags &= ~bits;
-        }
-        window.setAttributes(layoutParams);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getListData();
     }
 
     @Override
@@ -136,11 +119,4 @@ public class DeteksiActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getListData();
-    }
-
 }
